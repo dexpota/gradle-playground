@@ -1,0 +1,23 @@
+task startSession {
+	doLast {
+		chant()
+	}
+}
+
+def chant() {
+	ant.echo(message: "Repeat after me...")
+}
+
+// Define 3 different tasks dynamically
+3.times {
+	task "yayGradle$it" {
+		doLast {
+			println "Gradle Rocks"
+		}
+	}
+}
+
+yayGradle0.dependsOn startSession
+yayGradle2.dependsOn yayGradle1, yayGradle0
+
+task groupTherapy(dependsOn: yayGradle2)
